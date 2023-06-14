@@ -109,22 +109,25 @@ def save_qualifying_loans(qualifying_loans):
     Args:
         qualifying_loans (list of lists): The qualifying bank loans.
     """
-    # @TODO: Complete the usability dialog for savings the CSV Files.
+    # Complete the usability dialog for savings the CSV Files.
     # YOUR CODE HERE!
-    with open(csvpath, w, " ") as csvfile:
-        qualifying_loans = []
-        csvwriter = csv.writer(csvfile, delimiter=",")
-        
-
-        # Write the CSV data
-        for row in csvwriter:
-            qualifying_loans.append(row)
-    return qualifying_loans
-print("Good news, there some banks who are ready to lend you. here is the list:")
     
-answer = questionary.text("Do you want to save the list of banks for your future refrence:").ask
-if answer == "yes":
-    message = "here is the list: where do you want to save it?"
+    
+    answer = questionary.text("Do you want to save the list of banks for your future refrence:").ask
+    if answer == "yes":
+        message = "here is the list: where do you want to save it?"
+        csvpath = questionary.text("Enter a file path to save list of lenders (.csv):").ask()
+        csvpath = Path(csvpath)
+        with open(csvpath, "w") as csvfile:
+        
+            csvwriter = csv.writer(csvfile, delimiter=",")
+            
+
+            # Write the CSV data
+            for row in qualifying_loans:
+                csvwriter.writerow(row)
+    print("Good news, there some banks who are ready to lend you. here is the list:")
+
     
 
 def load_bank_data():
